@@ -43,17 +43,17 @@ export default function EditorToolbar({ onUpload, onCommandPalette }: Props) {
 
   return (
     <div className="flex items-center justify-between h-12 px-4 border-b border-[var(--border)] bg-[var(--bg-surface)] shrink-0">
-      {/* Left: Logo + title */}
-      <div className="flex items-center gap-3 min-w-0">
+      {/* Left: Logo + breadcrumb + title */}
+      <div className="flex items-center gap-2 min-w-0">
         <div
-          className="flex items-center gap-2 cursor-pointer group shrink-0"
-          onClick={() => navigate('/')}
+          className="flex items-center gap-1.5 cursor-pointer group shrink-0"
+          onClick={() => navigate('/decks')}
         >
           <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[var(--accent-cyan)] to-[var(--accent-violet)] flex items-center justify-center">
             <Layers size={12} className="text-black" />
           </div>
-          <span className="font-display text-sm font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors">
-            DeckCraft
+          <span className="font-display text-sm font-bold text-[var(--text-secondary)] group-hover:text-[var(--accent-cyan)] transition-colors hidden sm:block">
+            Decks
           </span>
         </div>
         <span className="text-[var(--border-strong)] text-sm hidden sm:block">/</span>

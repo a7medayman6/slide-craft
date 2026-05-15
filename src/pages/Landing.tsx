@@ -166,7 +166,7 @@ export default function Landing() {
   }, [])
 
   const handleGetStarted = () => {
-    navigate('/editor')
+    navigate('/decks')
   }
 
   const handleTryTheme = (theme: ThemeName) => {

@@ -36,7 +36,7 @@ export default function CommandPalette({ open, onClose }: Props) {
       icon: <Play size={16} />,
       shortcut: 'P',
       group: 'Actions',
-      action: () => { store.setIsPresenting(true); navigate('/present'); onClose() },
+      action: () => { navigate('/present'); onClose() },
     },
     {
       id: 'export',
