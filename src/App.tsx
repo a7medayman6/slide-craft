@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/next'
 import Landing from './pages/Landing'
 import Decks from './pages/Decks'
 import Editor from './pages/Editor'
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/editor" element={<Editor />} />
         <Route path="/present" element={<Present />} />
       </Routes>
+      <Analytics />
     </BrowserRouter>
   )
 }
