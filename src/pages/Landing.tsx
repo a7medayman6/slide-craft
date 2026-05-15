@@ -202,6 +202,15 @@ export default function Landing() {
         </div>
 
         <div className="flex items-center gap-3">
+          <a
+            href="https://github.com/a7medayman6/deck-craft"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] border border-[var(--border)] hover:border-[var(--border-strong)] rounded-xl transition-all"
+          >
+            <Star size={14} className="text-[var(--accent-amber)]" />
+            Star on GitHub
+          </a>
           <Button variant="ghost" size="sm" onClick={handleGetStarted}>
             Open Editor
           </Button>
