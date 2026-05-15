@@ -257,7 +257,10 @@ export const useAppStore = create<AppState>()(
             const slides = [...p.slides]
             const copy = { ...slides[index], id: `slide-${Date.now()}`, index: index + 1 }
             slides.splice(index + 1, 0, copy)
-            return { ...p, slides: slides.map((s, i) => ({ ...s, index: i })), updatedAt: Date.now() }
+            const reindexed = slides.map((s, i) => ({ ...s, index: i }))
+            const separator = p.mode === 'markdown' ? '\n---\n' : '\n<!-- slide -->\n'
+            const rawContent = reindexed.map(s => s.rawContent).join(separator)
+            return { ...p, slides: reindexed, rawContent, updatedAt: Date.now() }
           })
           return { presentations, presentation: sync(presentations, id) }
         })
