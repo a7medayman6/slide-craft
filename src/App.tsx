@@ -8,13 +8,13 @@ import Present from './pages/Present'
 export default function App() {
   return (
     <BrowserRouter>
+      <Analytics />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/decks" element={<Decks />} />
         <Route path="/editor" element={<Editor />} />
         <Route path="/present" element={<Present />} />
       </Routes>
-      <Analytics />
     </BrowserRouter>
   )
 }
