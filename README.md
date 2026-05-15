@@ -24,6 +24,48 @@ Visit at this link: https://deck-craft-theta.vercel.app/
 - ⌘K / Ctrl+K command palette for fast actions
 - 🌐 Export a standalone HTML deck for sharing
 
+### Hero-style terminal preview
+
+<table>
+	<tr>
+		<td>
+
+```text
+┌───────────────────────────────────────────────┐
+│ DeckCraft                                     │
+│                                               │
+│ > theme minimal                               │
+│   Clean white canvas                          │
+│                                               │
+│ > theme startup                               │
+│   Bold, electric, high contrast               │
+│                                               │
+│ > theme glassmorphism                         │
+│   Frosted panels with glowing depth           │
+│                                               │
+│ > theme editorial                             │
+│   Magazine-quality typography                 │
+│                                               │
+│ > theme futuristic                            │
+│   Terminal aesthetics with scan-line energy   │
+└───────────────────────────────────────────────┘
+```
+
+		</td>
+		<td valign="top">
+
+| Theme | Look |
+| --- | --- |
+| Minimal | Clean and timeless |
+| Startup | Bold and electric |
+| Glass | Frosted and luminous |
+| Editorial | Elegant serif layouts |
+| Cyber | Neon terminal style |
+
+		</td>
+	</tr>
+</table>
+
 ## Highlights
 
 - Markdown-first workflow with `---` slide separators
