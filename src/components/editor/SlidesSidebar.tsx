@@ -1,5 +1,4 @@
-import { AnimatePresence } from 'framer-motion'
-import { Layers, Plus } from 'lucide-react'
+import { Layers } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore'
 import SlideThumbnail from '../presentation/SlideThumbnail'
 
@@ -24,20 +23,18 @@ export default function SlidesSidebar() {
 
       {/* Slide list */}
       <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-2">
-        <AnimatePresence mode="popLayout">
-          {presentation.slides.map((slide, i) => (
-            <SlideThumbnail
-              key={slide.id}
-              slide={slide}
-              themeName={presentation.theme}
-              index={i}
-              isActive={i === currentSlideIndex}
-              onClick={() => setCurrentSlideIndex(i)}
-              onDelete={presentation.slides.length > 1 ? () => deleteSlide(i) : undefined}
-              onDuplicate={() => duplicateSlide(i)}
-            />
-          ))}
-        </AnimatePresence>
+        {presentation.slides.map((slide, i) => (
+          <SlideThumbnail
+            key={slide.id}
+            slide={slide}
+            themeName={presentation.theme}
+            index={i}
+            isActive={i === currentSlideIndex}
+            onClick={() => setCurrentSlideIndex(i)}
+            onDelete={presentation.slides.length > 1 ? () => deleteSlide(i) : undefined}
+            onDuplicate={() => duplicateSlide(i)}
+          />
+        ))}
 
         {presentation.slides.length === 0 && (
           <div className="text-center py-8">

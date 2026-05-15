@@ -35,10 +35,9 @@ const SlideThumbnail = forwardRef<HTMLDivElement, Props>(function SlideThumbnail
   return (
     <motion.div
       ref={ref}
-      layout
-      initial={{ opacity: 0, x: -10 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -10 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className={clsx(
         'group relative cursor-pointer rounded-lg overflow-hidden transition-all',
         isActive

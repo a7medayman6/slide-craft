@@ -91,6 +91,7 @@ export default function SlideRenderer({ slide, theme, scale = 1, className = '' 
         className="slide-content relative z-10 w-full max-w-4xl"
         style={{
           fontSize: `${scale}rem`,
+          textAlign: 'center',
         }}
       >
         {slide.mode === 'markdown' ? (
@@ -156,6 +157,9 @@ export default function SlideRenderer({ slide, theme, scale = 1, className = '' 
                     fontSize: 'clamp(0.9rem, 1.8vw, 1.2rem)',
                     lineHeight: 1.8,
                     marginBottom: '1rem',
+                    textAlign: 'left',
+                    display: 'inline-block',
+                    width: '100%',
                   }}
                 >
                   {children}
@@ -168,6 +172,9 @@ export default function SlideRenderer({ slide, theme, scale = 1, className = '' 
                     fontSize: 'clamp(0.9rem, 1.8vw, 1.2rem)',
                     lineHeight: 1.8,
                     marginBottom: '1rem',
+                    textAlign: 'left',
+                    display: 'inline-block',
+                    width: '100%',
                   }}
                 >
                   {children}
@@ -208,6 +215,8 @@ export default function SlideRenderer({ slide, theme, scale = 1, className = '' 
                     marginBottom: '1rem',
                     border: `1px solid ${theme.border}`,
                     fontSize: 'clamp(0.75rem, 1.5vw, 0.9rem)',
+                    textAlign: 'left',
+                    width: '100%',
                   }}
                 >
                   {children}
@@ -222,6 +231,7 @@ export default function SlideRenderer({ slide, theme, scale = 1, className = '' 
                     opacity: 0.85,
                     marginBottom: '1rem',
                     fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+                    textAlign: 'left',
                   }}
                 >
                   {children}
