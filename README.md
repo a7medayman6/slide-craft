@@ -4,6 +4,26 @@ DeckCraft is a frontend-only presentation builder for turning Markdown or HTML i
 
 Visit at this link: https://deck-craft-theta.vercel.app/
 
+> ✨ Markdown-first · 🎨 Beautiful themes · ⚡ Instant preview · 🖥️ Present mode · 📦 HTML export
+
+## Visual snapshot
+
+<table>
+	<tr>
+		<td><strong>1. Write</strong><br/>Use Markdown or HTML content.</td>
+		<td><strong>2. Preview</strong><br/>See updates instantly as you type.</td>
+		<td><strong>3. Present</strong><br/>Go fullscreen with smooth transitions.</td>
+	</tr>
+</table>
+
+### Built for a polished workflow
+
+- 📝 Write slides with Markdown separators like `---`
+- 🪟 Edit and preview side by side
+- 🎯 Switch themes and transitions quickly
+- ⌘K / Ctrl+K command palette for fast actions
+- 🌐 Export a standalone HTML deck for sharing
+
 ## Highlights
 
 - Markdown-first workflow with `---` slide separators
@@ -48,11 +68,14 @@ Visit at this link: https://deck-craft-theta.vercel.app/
 
 ### 5. Themes
 DeckCraft includes five built-in themes:
-- Minimal
-- Startup
-- Glassmorphism
-- Editorial
-- Futuristic
+
+| Theme | Style |
+| --- | --- |
+| Minimal | Clean white canvas, distraction-free |
+| Startup | Bold and electric |
+| Glassmorphism | Frosted panels with gradient depth |
+| Editorial | Magazine-quality serif typography |
+| Futuristic | Terminal-inspired cyber look |
 
 Each theme defines its own background, text colors, accents, fonts, and code style.
 
