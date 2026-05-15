@@ -67,7 +67,13 @@ function makePresentation(content: string, mode: InputMode, title?: string): Pre
   }
 }
 
-function updatePresentation(
+// Derive the active presentation from the list — used in every set() call
+// so presentation is never a stale frozen value from a getter.
+function sync(presentations: Presentation[], id: string): Presentation {
+  return presentations.find(p => p.id === id) ?? presentations[0]
+}
+
+function updatePres(
   presentations: Presentation[],
   id: string,
   updater: (p: Presentation) => Presentation
@@ -82,13 +88,8 @@ export const useAppStore = create<AppState>()(
     (set, get) => ({
       presentations: [FALLBACK],
       currentPresentationId: FALLBACK.id,
+      presentation: FALLBACK,
       currentSlideIndex: 0,
-
-      // Derived getter
-      get presentation() {
-        const { presentations, currentPresentationId } = get()
-        return presentations.find(p => p.id === currentPresentationId) ?? presentations[0]
-      },
 
       // ── Presentation list management ──────────────────────────────────
 
@@ -97,13 +98,18 @@ export const useAppStore = create<AppState>()(
         set(state => ({
           presentations: [pres, ...state.presentations],
           currentPresentationId: pres.id,
+          presentation: pres,
           currentSlideIndex: 0,
         }))
         return pres.id
       },
 
       openPresentation: (id: string) => {
-        set({ currentPresentationId: id, currentSlideIndex: 0 })
+        set(state => ({
+          currentPresentationId: id,
+          presentation: sync(state.presentations, id),
+          currentSlideIndex: 0,
+        }))
       },
 
       deletePresentation: (id: string) => {
@@ -111,13 +117,20 @@ export const useAppStore = create<AppState>()(
           const remaining = state.presentations.filter(p => p.id !== id)
           if (remaining.length === 0) {
             const fresh = makePresentation(DEFAULT_CONTENT, 'markdown')
-            return { presentations: [fresh], currentPresentationId: fresh.id, currentSlideIndex: 0 }
+            return {
+              presentations: [fresh],
+              currentPresentationId: fresh.id,
+              presentation: fresh,
+              currentSlideIndex: 0,
+            }
           }
-          const nextId =
-            state.currentPresentationId === id
-              ? remaining[0].id
-              : state.currentPresentationId
-          return { presentations: remaining, currentPresentationId: nextId, currentSlideIndex: 0 }
+          const nextId = state.currentPresentationId === id ? remaining[0].id : state.currentPresentationId
+          return {
+            presentations: remaining,
+            currentPresentationId: nextId,
+            presentation: sync(remaining, nextId),
+            currentSlideIndex: 0,
+          }
         })
       },
 
@@ -130,11 +143,15 @@ export const useAppStore = create<AppState>()(
           title: `${source.title} (copy)`,
           createdAt: Date.now(),
           updatedAt: Date.now(),
-          slides: source.slides.map(s => ({ ...s, id: `slide-${Date.now()}-${Math.random().toString(36).slice(2, 5)}` })),
+          slides: source.slides.map(s => ({
+            ...s,
+            id: `slide-${Date.now()}-${Math.random().toString(36).slice(2, 5)}`,
+          })),
         }
         set(state => ({
           presentations: [copy, ...state.presentations],
           currentPresentationId: copy.id,
+          presentation: copy,
           currentSlideIndex: 0,
         }))
         return copy.id
@@ -143,50 +160,49 @@ export const useAppStore = create<AppState>()(
       // ── Active presentation mutations ─────────────────────────────────
 
       setContent: (content: string, mode?: InputMode) => {
-        const { currentPresentationId, presentations } = get()
-        const current = presentations.find(p => p.id === currentPresentationId)
-        if (!current) return
-        const currentMode = mode ?? current.mode
-        const slides = parseContent(content, currentMode)
-        const title = extractTitle(slides, currentMode)
-        set(state => ({
-          presentations: updatePresentation(state.presentations, currentPresentationId, p => ({
+        set(state => {
+          const id = state.currentPresentationId
+          const currentMode = mode ?? state.presentation.mode
+          const slides = parseContent(content, currentMode)
+          const title = extractTitle(slides, currentMode)
+          const presentations = updatePres(state.presentations, id, p => ({
             ...p,
             rawContent: content,
             mode: currentMode,
             slides,
             title,
             updatedAt: Date.now(),
-          })),
-          currentSlideIndex: Math.min(state.currentSlideIndex, Math.max(0, slides.length - 1)),
-        }))
+          }))
+          return {
+            presentations,
+            presentation: sync(presentations, id),
+            currentSlideIndex: Math.min(state.currentSlideIndex, Math.max(0, slides.length - 1)),
+          }
+        })
       },
 
       setTheme: (theme: ThemeName) => {
-        const id = get().currentPresentationId
-        set(state => ({
-          presentations: updatePresentation(state.presentations, id, p => ({
-            ...p, theme, updatedAt: Date.now(),
-          })),
-        }))
+        set(state => {
+          const id = state.currentPresentationId
+          const presentations = updatePres(state.presentations, id, p => ({ ...p, theme, updatedAt: Date.now() }))
+          return { presentations, presentation: sync(presentations, id) }
+        })
       },
 
       setTransition: (transition: TransitionName) => {
-        const id = get().currentPresentationId
-        set(state => ({
-          presentations: updatePresentation(state.presentations, id, p => ({
-            ...p, transition, updatedAt: Date.now(),
-          })),
-        }))
+        set(state => {
+          const id = state.currentPresentationId
+          const presentations = updatePres(state.presentations, id, p => ({ ...p, transition, updatedAt: Date.now() }))
+          return { presentations, presentation: sync(presentations, id) }
+        })
       },
 
       setTitle: (title: string) => {
-        const id = get().currentPresentationId
-        set(state => ({
-          presentations: updatePresentation(state.presentations, id, p => ({
-            ...p, title, updatedAt: Date.now(),
-          })),
-        }))
+        set(state => {
+          const id = state.currentPresentationId
+          const presentations = updatePres(state.presentations, id, p => ({ ...p, title, updatedAt: Date.now() }))
+          return { presentations, presentation: sync(presentations, id) }
+        })
       },
 
       // ── Slide navigation ──────────────────────────────────────────────
@@ -197,8 +213,9 @@ export const useAppStore = create<AppState>()(
       },
 
       nextSlide: () => {
-        const { currentSlideIndex, presentation } = get()
-        set({ currentSlideIndex: Math.min(currentSlideIndex + 1, presentation.slides.length - 1) })
+        set(state => ({
+          currentSlideIndex: Math.min(state.currentSlideIndex + 1, state.presentation.slides.length - 1),
+        }))
       },
 
       prevSlide: () => {
@@ -208,40 +225,42 @@ export const useAppStore = create<AppState>()(
       // ── Slide CRUD ────────────────────────────────────────────────────
 
       reorderSlides: (from: number, to: number) => {
-        const id = get().currentPresentationId
-        set(state => ({
-          presentations: updatePresentation(state.presentations, id, p => {
+        set(state => {
+          const id = state.currentPresentationId
+          const presentations = updatePres(state.presentations, id, p => {
             const slides = [...p.slides]
             const [moved] = slides.splice(from, 1)
             slides.splice(to, 0, moved)
             return { ...p, slides: slides.map((s, i) => ({ ...s, index: i })), updatedAt: Date.now() }
-          }),
-        }))
+          })
+          return { presentations, presentation: sync(presentations, id) }
+        })
       },
 
       deleteSlide: (index: number) => {
-        const id = get().currentPresentationId
         set(state => {
-          let nextSlideIndex = state.currentSlideIndex
-          const updated = updatePresentation(state.presentations, id, p => {
+          const id = state.currentPresentationId
+          const presentations = updatePres(state.presentations, id, p => {
             const slides = p.slides.filter((_, i) => i !== index).map((s, i) => ({ ...s, index: i }))
-            nextSlideIndex = Math.min(state.currentSlideIndex, Math.max(0, slides.length - 1))
             return { ...p, slides, updatedAt: Date.now() }
           })
-          return { presentations: updated, currentSlideIndex: nextSlideIndex }
+          const newPresentation = sync(presentations, id)
+          const newSlideIndex = Math.min(state.currentSlideIndex, Math.max(0, newPresentation.slides.length - 1))
+          return { presentations, presentation: newPresentation, currentSlideIndex: newSlideIndex }
         })
       },
 
       duplicateSlide: (index: number) => {
-        const id = get().currentPresentationId
-        set(state => ({
-          presentations: updatePresentation(state.presentations, id, p => {
+        set(state => {
+          const id = state.currentPresentationId
+          const presentations = updatePres(state.presentations, id, p => {
             const slides = [...p.slides]
             const copy = { ...slides[index], id: `slide-${Date.now()}`, index: index + 1 }
             slides.splice(index + 1, 0, copy)
             return { ...p, slides: slides.map((s, i) => ({ ...s, index: i })), updatedAt: Date.now() }
-          }),
-        }))
+          })
+          return { presentations, presentation: sync(presentations, id) }
+        })
       },
 
       // ── Export ────────────────────────────────────────────────────────
@@ -256,8 +275,13 @@ export const useAppStore = create<AppState>()(
         presentations: state.presentations,
         currentPresentationId: state.currentPresentationId,
         currentSlideIndex: state.currentSlideIndex,
+        // presentation is derived — recomputed on rehydrate via onRehydrateStorage
       }),
-      // Migrate from old single-presentation format
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.presentation = sync(state.presentations, state.currentPresentationId)
+        }
+      },
       migrate: (persisted: any) => {
         if (persisted?.presentation && !persisted?.presentations) {
           return {
