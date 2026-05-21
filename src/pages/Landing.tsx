@@ -9,6 +9,7 @@ import {
 import { useAppStore } from '../store/useAppStore'
 import { themeList } from '../lib/themes'
 import { Button } from '../components/ui/Button'
+import AIWorkflowSection from '../components/landing/AIWorkflowSection'
 import type { ThemeName } from '../types'
 
 const demoMarkdown = `# Ship Faster
@@ -198,6 +199,7 @@ export default function Landing() {
 
         <div className="hidden md:flex items-center gap-6">
           <a href="#features" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">Features</a>
+          <a href="#ai-workflow" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">AI Workflow</a>
           <a href="#themes" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">Themes</a>
         </div>
 
@@ -444,6 +446,8 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      <AIWorkflowSection />
 
       {/* Themes */}
       <section id="themes" className="relative py-32 px-6 overflow-hidden">

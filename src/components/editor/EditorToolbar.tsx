@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Play, Download, Upload, Palette, ChevronDown, Type,
-  Command, Layers, RotateCcw, Sun, Moon
+  Command, Layers, RotateCcw, Sun, Moon, Bot, Copy, Check
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../../store/useAppStore'
 import { themeList } from '../../lib/themes'
 import { Button } from '../ui/Button'
+import { AI_SYSTEM_PROMPT } from '../../lib/aiPrompt'
 import type { InputMode, ThemeName, TransitionName } from '../../types'
 import { clsx } from 'clsx'
 
@@ -29,6 +30,13 @@ export default function EditorToolbar({ onUpload, onCommandPalette }: Props) {
   const store = useAppStore()
   const [themeOpen, setThemeOpen] = useState(false)
   const [transOpen, setTransOpen] = useState(false)
+  const [promptCopied, setPromptCopied] = useState(false)
+
+  const handleCopyPrompt = () => {
+    navigator.clipboard.writeText(AI_SYSTEM_PROMPT)
+    setPromptCopied(true)
+    setTimeout(() => setPromptCopied(false), 2000)
+  }
 
   const currentTheme = themeList.find(t => t.name === store.presentation.theme)
 
@@ -142,6 +150,22 @@ export default function EditorToolbar({ onUpload, onCommandPalette }: Props) {
             )}
           </AnimatePresence>
         </div>
+
+        {/* AI Prompt */}
+        <motion.button
+          onClick={handleCopyPrompt}
+          whileTap={{ scale: 0.94 }}
+          className={clsx(
+            'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all border',
+            promptCopied
+              ? 'bg-[var(--accent-green)]/15 border-[var(--accent-green)]/30 text-[var(--accent-green)]'
+              : 'text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/8 border-[var(--accent-cyan)]/20 hover:bg-[var(--accent-cyan)]/15 hover:border-[var(--accent-cyan)]/40'
+          )}
+          title="Copy AI system prompt for slide generation"
+        >
+          {promptCopied ? <Check size={13} /> : <Bot size={13} />}
+          <span className="hidden sm:inline">{promptCopied ? 'Copied!' : 'AI Prompt'}</span>
+        </motion.button>
 
         {/* Command palette */}
         <button
