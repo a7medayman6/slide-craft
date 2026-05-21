@@ -54,3 +54,6 @@ dist/**
 .agents/
 dist*
 .playwright-*/**
+
+# Social media drafts
+social.media/
