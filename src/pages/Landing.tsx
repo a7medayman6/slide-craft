@@ -197,7 +197,7 @@ export default function Landing() {
           <span className="font-display text-lg font-bold tracking-tight">SlideCraft</span>
         </div>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
           <a href="#features" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">Features</a>
           <a href="#ai-workflow" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">AI Workflow</a>
           <a href="#themes" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">Themes</a>
