@@ -8,7 +8,7 @@ const STEPS = [
     n: '01',
     icon: <ClipboardCopy size={18} />,
     title: 'Copy the system prompt',
-    desc: 'Grab the ready-made prompt below — it teaches any AI the exact DeckCraft slide format.',
+    desc: 'Grab the ready-made prompt below — it teaches any AI the exact SlideCraft slide format.',
     color: 'var(--accent-cyan)',
   },
   {
@@ -22,7 +22,7 @@ const STEPS = [
     n: '03',
     icon: <Zap size={18} />,
     title: 'Paste & present',
-    desc: 'Copy the AI output, paste it into DeckCraft\'s editor, pick a theme, and hit Present.',
+    desc: 'Copy the AI output, paste it into SlideCraft\'s editor, pick a theme, and hit Present.',
     color: 'var(--accent-amber)',
   },
 ]

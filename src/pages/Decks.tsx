@@ -241,7 +241,7 @@ export default function Decks() {
               <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[var(--accent-cyan)] to-[var(--accent-violet)] flex items-center justify-center">
                 <Layers size={13} className="text-black" />
               </div>
-              <span className="font-display font-bold text-[var(--text-primary)]">DeckCraft</span>
+              <span className="font-display font-bold text-[var(--text-primary)]">SlideCraft</span>
             </div>
             <span className="text-[var(--border-strong)]">/</span>
             <span className="text-sm text-[var(--text-secondary)] font-[Syne]">My Decks</span>

@@ -4,7 +4,7 @@ import type { AppState, InputMode, ThemeName, TransitionName, Presentation } fro
 import { parseContent, extractTitle } from '../lib/parser'
 import { exportToHTML } from '../lib/export'
 
-const DEFAULT_CONTENT = `# Welcome to DeckCraft
+const DEFAULT_CONTENT = `# Welcome to SlideCraft
 
 Transform your documents into stunning presentations
 
@@ -273,7 +273,7 @@ export const useAppStore = create<AppState>()(
       },
     }),
     {
-      name: 'deckcraft-state-v2',
+      name: 'slidecraft-state-v2',
       partialize: state => ({
         presentations: state.presentations,
         currentPresentationId: state.currentPresentationId,

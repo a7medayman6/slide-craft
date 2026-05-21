@@ -194,7 +194,7 @@ export default function Landing() {
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[var(--accent-cyan)] to-[var(--accent-violet)] flex items-center justify-center shadow-lg shadow-cyan-500/20">
             <Layers size={15} className="text-black" />
           </div>
-          <span className="font-display text-lg font-bold tracking-tight">DeckCraft</span>
+          <span className="font-display text-lg font-bold tracking-tight">SlideCraft</span>
         </div>
 
         <div className="hidden md:flex items-center gap-6">
@@ -321,7 +321,7 @@ export default function Landing() {
               <div className="flex-1 mx-3">
                 <div className="flex items-center gap-2 bg-[var(--bg-elevated)] rounded-lg px-3 py-1 text-xs text-[var(--text-muted)] font-mono max-w-xs mx-auto">
                   <span className="text-[var(--accent-green)] text-xs">●</span>
-                  deckcraft.app/editor
+                  slidecraft.app/editor
                 </div>
               </div>
             </div>
@@ -547,7 +547,7 @@ export default function Landing() {
               whileTap={{ scale: 0.97 }}
               className="group inline-flex items-center gap-3 px-10 py-5 bg-[var(--accent-cyan)] text-black font-bold rounded-2xl text-lg hover:brightness-110 transition-all shadow-2xl shadow-cyan-500/30 font-[Syne]"
             >
-              Open DeckCraft
+              Open SlideCraft
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </motion.div>
@@ -561,7 +561,7 @@ export default function Landing() {
             <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[var(--accent-cyan)] to-[var(--accent-violet)] flex items-center justify-center">
               <Layers size={11} className="text-black" />
             </div>
-            <span className="font-display text-sm font-bold text-[var(--text-secondary)]">DeckCraft</span>
+            <span className="font-display text-sm font-bold text-[var(--text-secondary)]">SlideCraft</span>
           </div>
           <p className="text-xs text-[var(--text-muted)]">
             Frontend only · Runs in your browser · No data leaves your device

@@ -2,9 +2,9 @@ const TICK = '`'
 const FENCE = TICK + TICK + TICK
 
 export const AI_SYSTEM_PROMPT = [
-  'You are a slide deck generator for DeckCraft — a Markdown-first presentation tool.',
+  'You are a slide deck generator for SlideCraft — a Markdown-first presentation tool.',
   '',
-  'Your ENTIRE response will be pasted directly into DeckCraft\'s editor as slide content.',
+  'Your ENTIRE response will be pasted directly into SlideCraft\'s editor as slide content.',
   '',
   '## Slide Format',
   '',
