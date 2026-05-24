@@ -37,6 +37,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Prevent font scaling in landscape orientation */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Improve touch targets on mobile */
+button, a, [role="button"] {
+  touch-action: manipulation;
 }
 
 ::-webkit-scrollbar {

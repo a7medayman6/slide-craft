@@ -27,6 +27,7 @@ const CARD_H = 180
 const SLIDE_W = 1280
 const SLIDE_H = 720
 const SCALE = CARD_W / SLIDE_W
+const CARD_TOTAL_H = CARD_H + 60
 
 interface DeckCardProps {
   pres: Presentation
@@ -54,8 +55,7 @@ const DeckCard = forwardRef<HTMLDivElement, DeckCardProps>(function DeckCard(
       exit={{ opacity: 0, scale: 0.95 }}
       whileHover={{ y: -3 }}
       transition={{ duration: 0.2 }}
-      className="group relative rounded-2xl overflow-hidden border border-[var(--border)] hover:border-[var(--border-strong)] bg-[var(--bg-surface)] transition-colors cursor-pointer"
-      style={{ width: CARD_W }}
+      className="group relative rounded-2xl overflow-hidden border border-[var(--border)] hover:border-[var(--border-strong)] bg-[var(--bg-surface)] transition-colors cursor-pointer w-full"
     >
       {/* Thumbnail */}
       <div
@@ -64,16 +64,27 @@ const DeckCard = forwardRef<HTMLDivElement, DeckCardProps>(function DeckCard(
         onClick={onOpen}
       >
         {firstSlide ? (
-          <div
-            style={{
-              width: SLIDE_W,
-              height: SLIDE_H,
-              transform: `scale(${SCALE})`,
-              transformOrigin: 'top left',
-              pointerEvents: 'none',
-            }}
-          >
-            <SlideRenderer slide={firstSlide} theme={theme} />
+          <div className="absolute inset-0 flex items-center justify-center" style={{ background: theme.bg.startsWith('linear') ? theme.bg : theme.bg }}>
+            <div
+              style={{
+                width: CARD_W,
+                height: CARD_H,
+                overflow: 'hidden',
+                flexShrink: 0,
+              }}
+            >
+              <div
+                style={{
+                  width: SLIDE_W,
+                  height: SLIDE_H,
+                  transform: `scale(${SCALE})`,
+                  transformOrigin: 'top left',
+                  pointerEvents: 'none',
+                }}
+              >
+                <SlideRenderer slide={firstSlide} theme={theme} />
+              </div>
+            </div>
           </div>
         ) : (
           <div
@@ -228,7 +239,7 @@ export default function Decks() {
 
       {/* Header */}
       <div className="sticky top-0 z-30 glass border-b border-[var(--border)]">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           {/* Left: logo + back */}
           <div className="flex items-center gap-4">
             <button
@@ -262,17 +273,31 @@ export default function Decks() {
               onClick={handleNew}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-4 py-2 bg-[var(--accent-cyan)] text-black text-sm font-semibold rounded-xl hover:brightness-110 transition-all font-[Syne]"
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-[var(--accent-cyan)] text-black text-sm font-semibold rounded-xl hover:brightness-110 transition-all font-[Syne]"
             >
               <Plus size={15} />
-              New Deck
+              <span className="hidden xs:inline">New Deck</span>
+              <span className="xs:hidden">New</span>
             </motion.button>
+          </div>
+        </div>
+
+        {/* Mobile search bar */}
+        <div className="sm:hidden px-4 pb-3">
+          <div className="relative">
+            <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search decks…"
+              className="w-full pl-8 pr-3 py-2 bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none focus:border-[var(--border-accent)] transition-colors"
+            />
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-6xl mx-auto px-6 py-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 relative z-10">
         {/* Stats row */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -293,15 +318,15 @@ export default function Decks() {
         {filtered.length > 0 ? (
           <motion.div
             layout
-            className="flex flex-wrap gap-5"
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"
           >
             {/* New deck card */}
             <motion.button
               onClick={handleNew}
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.98 }}
-              className="flex flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-[var(--border)] hover:border-[var(--accent-cyan)] hover:border-opacity-50 text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-all group"
-              style={{ width: CARD_W, height: CARD_H + 60 }}
+              className="flex flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-[var(--border)] hover:border-[var(--accent-cyan)] hover:border-opacity-50 text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-all group w-full"
+              style={{ minHeight: CARD_TOTAL_H }}
             >
               <div className="w-12 h-12 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] group-hover:border-[var(--accent-cyan)] group-hover:border-opacity-30 flex items-center justify-center transition-all">
                 <Plus size={20} />

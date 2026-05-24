@@ -10,7 +10,7 @@ import CommandPalette from '../components/ui/CommandPalette'
 export default function Editor() {
   const [showUpload, setShowUpload] = useState(false)
   const [showCommand, setShowCommand] = useState(false)
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024)
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -54,9 +54,9 @@ export default function Editor() {
           onClick={() => setSidebarOpen(o => !o)}
           className="text-[9px] font-mono text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors uppercase tracking-wider"
         >
-          {sidebarOpen ? '◀ Hide slides' : '▶ Show slides'}
+          {sidebarOpen ? '◀ Hide' : '▶ Slides'}
         </button>
-        <span className="text-[9px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
+        <span className="hidden sm:inline text-[9px] font-mono text-[var(--text-muted)] uppercase tracking-wider">
           ⌘K — Command palette
         </span>
         <span className="text-[9px] font-mono text-[var(--text-muted)] uppercase tracking-wider ml-auto">
