@@ -98,7 +98,7 @@ export default function AIWorkflowSection() {
   const lines = AI_SYSTEM_PROMPT.split('\n')
 
   return (
-    <section id="ai-workflow" className="relative py-32 px-6 overflow-hidden">
+    <section id="ai-workflow" className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
       {/* Background glow */}
       <div
         className="absolute inset-0 opacity-[0.04] pointer-events-none"
@@ -178,18 +178,18 @@ export default function AIWorkflowSection() {
           className="glass-strong rounded-2xl border border-[var(--border-strong)] overflow-hidden shadow-2xl shadow-black/40"
         >
           {/* Prompt header bar */}
-          <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--border)] bg-[var(--bg-surface)]">
-            <div className="flex items-center gap-3">
-              <div className="flex gap-1.5">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-5 py-3 border-b border-[var(--border)] bg-[var(--bg-surface)]">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div className="flex gap-1.5 shrink-0">
                 <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
                 <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
                 <div className="w-3 h-3 rounded-full bg-[#28c840]" />
               </div>
-              <div className="flex items-center gap-2">
-                <Bot size={13} className="text-[var(--accent-cyan)]" />
-                <span className="text-xs font-mono text-[var(--text-muted)]">system-prompt.md</span>
+              <div className="flex items-center gap-2 min-w-0">
+                <Bot size={13} className="text-[var(--accent-cyan)] shrink-0" />
+                <span className="text-xs font-mono text-[var(--text-muted)] truncate">system-prompt.md</span>
               </div>
-              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[var(--accent-amber)]/10 border border-[var(--accent-amber)]/20">
+              <div className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[var(--accent-amber)]/10 border border-[var(--accent-amber)]/20">
                 <span className="text-[10px] font-mono text-[var(--accent-amber)]">3 variables to fill</span>
               </div>
             </div>
@@ -198,7 +198,7 @@ export default function AIWorkflowSection() {
               onClick={handleCopy}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-semibold font-[Syne] transition-all"
+              className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-xl text-xs font-semibold font-[Syne] transition-all shrink-0"
               style={{
                 background: copied ? 'var(--accent-green)' : 'var(--accent-cyan)',
                 color: '#000',
@@ -210,7 +210,7 @@ export default function AIWorkflowSection() {
           </div>
 
           {/* Prompt content */}
-          <div className="relative overflow-auto max-h-80 p-5 font-mono text-[11px] leading-[1.75] bg-[var(--bg-void)] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10">
+          <div className="relative overflow-auto max-h-64 sm:max-h-80 p-4 sm:p-5 font-mono text-[11px] leading-[1.75] bg-[var(--bg-void)] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10">
             {/* Line numbers + content */}
             <div className="flex gap-4">
               <div className="select-none shrink-0 text-right" style={{ color: 'var(--text-muted)', opacity: 0.35 }}>
@@ -230,7 +230,7 @@ export default function AIWorkflowSection() {
           </div>
 
           {/* Footer hint */}
-          <div className="px-5 py-3 border-t border-[var(--border)] bg-[var(--bg-surface)] flex items-center gap-2">
+          <div className="px-4 sm:px-5 py-3 border-t border-[var(--border)] bg-[var(--bg-surface)] flex flex-wrap items-center gap-1.5 sm:gap-2">
             <span className="text-[10px] font-mono text-[var(--text-muted)]">Fill in</span>
             {['{{TOPIC}}', '{{AUDIENCE}}', '{{TONE}}', '{{SLIDE_COUNT}}', '{{CONTEXT}}'].map(v => (
               <span
@@ -241,7 +241,7 @@ export default function AIWorkflowSection() {
                 {v}
               </span>
             ))}
-            <span className="text-[10px] font-mono text-[var(--text-muted)] ml-1">then paste the AI output into the editor</span>
+            <span className="text-[10px] font-mono text-[var(--text-muted)]">then paste the AI output into the editor</span>
           </div>
         </motion.div>
       </div>

@@ -202,11 +202,11 @@ export default function Present() {
         }}
       >
         <div
-          className="flex items-center gap-2 text-sm font-[Syne] font-medium opacity-70"
+          className="flex items-center gap-2 text-xs sm:text-sm font-[Syne] font-medium opacity-70 min-w-0"
           style={{ color: theme.name === 'minimal' || theme.name === 'editorial' ? theme.text : '#ffffff' }}
         >
-          <Layers size={14} />
-          {presentation.title}
+          <Layers size={14} className="shrink-0" />
+          <span className="truncate max-w-[120px] sm:max-w-none">{presentation.title}</span>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -354,7 +354,7 @@ export default function Present() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
         transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-3 text-xs font-mono z-10 pointer-events-none"
+        className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-mono z-10 pointer-events-none whitespace-nowrap"
         style={{
           color: theme.name === 'minimal' || theme.name === 'editorial'
             ? `${theme.textMuted}`
@@ -362,10 +362,10 @@ export default function Present() {
         }}
       >
         <span>← → navigate</span>
-        <span>·</span>
-        <span>G thumbnails</span>
-        <span>·</span>
-        <span>F fullscreen</span>
+        <span className="hidden sm:inline">·</span>
+        <span className="hidden sm:inline">G thumbnails</span>
+        <span className="hidden sm:inline">·</span>
+        <span className="hidden sm:inline">F fullscreen</span>
         <span>·</span>
         <span>ESC exit</span>
       </motion.div>

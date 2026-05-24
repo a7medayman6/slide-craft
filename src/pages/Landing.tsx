@@ -47,7 +47,7 @@ function ThemeCard({ theme, isActive, onClick }: { theme: typeof themeList[0]; i
       }`}
       style={{ background: isGradient ? theme.bg : theme.bg }}
     >
-      <div className="p-6 h-36" style={{ color: theme.text }}>
+      <div className="p-4 sm:p-6 h-28 sm:h-36" style={{ color: theme.text }}>
         {theme.name === 'futuristic' && (
           <div
             className="absolute inset-0 opacity-20"
@@ -203,21 +203,23 @@ export default function Landing() {
           <a href="#themes" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">Themes</a>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <a
             href="https://github.com/a7medayman6/deck-craft"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] border border-[var(--border)] hover:border-[var(--border-strong)] rounded-xl transition-all"
+            className="hidden sm:inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] border border-[var(--border)] hover:border-[var(--border-strong)] rounded-xl transition-all"
           >
             <Star size={14} className="text-[var(--accent-amber)]" />
             Star on GitHub
           </a>
-          <Button variant="ghost" size="sm" onClick={handleGetStarted}>
+          <Button variant="ghost" size="sm" onClick={handleGetStarted} className="hidden sm:inline-flex">
             Open Editor
           </Button>
           <Button variant="primary" size="sm" onClick={handleGetStarted}>
-            Get Started <ArrowRight size={14} />
+            <span className="hidden sm:inline">Get Started</span>
+            <span className="sm:hidden">Start</span>
+            <ArrowRight size={14} />
           </Button>
         </div>
       </motion.nav>
@@ -226,7 +228,7 @@ export default function Landing() {
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity, y: heroY }}
-        className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 text-center"
+        className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-4 sm:px-6 text-center"
       >
         {/* Glow orbs */}
         <div
@@ -243,9 +245,9 @@ export default function Landing() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1, duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-[var(--border-accent)] mb-8"
+          className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full glass border border-[var(--border-accent)] mb-8 max-w-full"
         >
-          <Sparkles size={12} className="text-[var(--accent-cyan)]" />
+          <Sparkles size={12} className="text-[var(--accent-cyan)] shrink-0" />
           <span className="text-xs text-[var(--accent-cyan)] font-medium font-[Syne]">Frontend Only · No Server · No Auth</span>
         </motion.div>
 
@@ -254,7 +256,7 @@ export default function Landing() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight max-w-5xl mb-6"
+          className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight max-w-5xl mb-6"
         >
           Turn Documents Into{' '}
           <span className="gradient-text">Beautiful</span>{' '}
@@ -267,7 +269,7 @@ export default function Landing() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.6 }}
-          className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl mb-10 leading-relaxed"
+          className="text-base sm:text-xl text-[var(--text-secondary)] max-w-2xl mb-10 leading-relaxed"
         >
           Write in <span className="text-[var(--text-primary)] font-medium">Markdown</span> or{' '}
           <span className="text-[var(--text-primary)] font-medium">HTML</span>. Present{' '}
@@ -307,7 +309,7 @@ export default function Landing() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45, duration: 0.8 }}
-          className="relative w-full max-w-4xl mx-auto"
+          className="relative w-full max-w-4xl mx-auto px-0"
         >
           {/* Browser chrome */}
           <div className="glass-strong rounded-2xl overflow-hidden border border-[var(--border-strong)] shadow-2xl shadow-black/60">
@@ -338,7 +340,7 @@ export default function Landing() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                  className="absolute inset-0 flex flex-col items-center justify-center px-16"
+                  className="absolute inset-0 flex flex-col items-center justify-center px-6 sm:px-12 md:px-16"
                   style={{ background: current.bg }}
                 >
                   {current.bg === '#000000' && (
@@ -351,7 +353,7 @@ export default function Landing() {
                   )}
 
                   <div
-                    className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4 relative z-10"
+                    className="text-2xl sm:text-4xl md:text-5xl font-bold text-center mb-4 relative z-10"
                     style={{
                       fontFamily: current.dark === false ? 'Playfair Display, serif' : 'Syne, sans-serif',
                       color: isDark ? '#e8e8ff' : '#1c1917',
@@ -362,7 +364,7 @@ export default function Landing() {
                     {current.heading}
                   </div>
                   <div
-                    className="text-lg sm:text-xl relative z-10 text-center"
+                    className="text-sm sm:text-lg relative z-10 text-center"
                     style={{
                       color: current.accent,
                       fontFamily: current.bg === '#000000' ? 'JetBrains Mono, monospace' : 'Outfit, sans-serif',
@@ -395,7 +397,7 @@ export default function Landing() {
       </motion.section>
 
       {/* Features */}
-      <section id="features" className="relative py-32 px-6">
+      <section id="features" className="relative py-20 sm:py-32 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -408,11 +410,11 @@ export default function Landing() {
               <Zap size={10} className="text-[var(--accent-amber)]" />
               Everything you need
             </div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
               Built for creators who{' '}
               <span className="gradient-text-warm">ship</span>
             </h2>
-            <p className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto">
+            <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-2xl mx-auto">
               Every feature designed to get you from idea to presentation in seconds.
               No friction. No fuss.
             </p>
@@ -450,7 +452,7 @@ export default function Landing() {
       <AIWorkflowSection />
 
       {/* Themes */}
-      <section id="themes" className="relative py-32 px-6 overflow-hidden">
+      <section id="themes" className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
         <div
           className="absolute inset-0 opacity-5 pointer-events-none"
           style={{
@@ -470,16 +472,16 @@ export default function Landing() {
               <Palette size={10} className="text-[var(--accent-violet)]" />
               Visual Themes
             </div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
               Every aesthetic,{' '}
               <span className="gradient-text">perfectly crafted</span>
             </h2>
-            <p className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto">
+            <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-2xl mx-auto">
               Five premium themes, each with its own character. Switch instantly.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
             {themeList.map((theme, i) => (
               <motion.div
                 key={theme.name}
@@ -512,7 +514,7 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-32 px-6">
+      <section className="relative py-20 sm:py-32 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center relative z-10">
           <div
             className="absolute inset-0 -m-20 rounded-3xl opacity-10 blur-3xl pointer-events-none"
@@ -530,7 +532,7 @@ export default function Landing() {
               100% Free · No Sign Up
             </div>
 
-            <h2 className="font-display text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
               Start presenting in
               <br />
               <span className="gradient-text">seconds, not hours</span>
@@ -545,7 +547,7 @@ export default function Landing() {
               onClick={handleGetStarted}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center gap-3 px-10 py-5 bg-[var(--accent-cyan)] text-black font-bold rounded-2xl text-lg hover:brightness-110 transition-all shadow-2xl shadow-cyan-500/30 font-[Syne]"
+              className="group inline-flex items-center gap-3 px-7 py-4 sm:px-10 sm:py-5 bg-[var(--accent-cyan)] text-black font-bold rounded-2xl text-base sm:text-lg hover:brightness-110 transition-all shadow-2xl shadow-cyan-500/30 font-[Syne]"
             >
               Open SlideCraft
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -555,7 +557,7 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--border)] py-8 px-6">
+      <footer className="border-t border-[var(--border)] py-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[var(--accent-cyan)] to-[var(--accent-violet)] flex items-center justify-center">

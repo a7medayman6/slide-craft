@@ -179,7 +179,7 @@ export default function EditorToolbar({ onUpload, onCommandPalette }: Props) {
         {/* Upload */}
         <button
           onClick={onUpload}
-          className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] rounded-lg transition-all"
+          className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] rounded-lg transition-all hidden sm:block"
           title="Upload File"
         >
           <Upload size={16} />
@@ -197,7 +197,7 @@ export default function EditorToolbar({ onUpload, onCommandPalette }: Props) {
         {/* Present */}
         <Button variant="primary" size="sm" onClick={handlePresent}>
           <Play size={12} />
-          Present
+          <span className="hidden sm:inline">Present</span>
         </Button>
       </div>
     </div>
